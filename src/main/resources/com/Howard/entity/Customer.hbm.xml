@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+  <class name="com.Howard.entity.Customer" table="t_customer" >
+     <id name="cid" column="cid">
+     	<!-- uuid:生成32位字符串  -->
+     	<!-- <generator class="uuid"></generator> -->
+     	<!-- native 会根据你的数据库自动选择策略 比如mysql 选择的是自动增长 -->
+     	<generator class="native"></generator>
+     </id>
+     <property name="custName" column="custName"/>
+     <property name="custLevel" column="custLevel"/>
+     
+     <!-- hibernate默认机制是双方都维护外键 -->
+     <!-- cascade="save-update":设置级联保存 多个之间用逗号隔开 -->
+     <!--  inverse="true" 默认false 设置是否一方放弃维护外键 flase表示不放弃 true表示放弃 -->
+     <!-- 配置是否启用延迟加载：fetch="select" lazy="flase" lazy默认为true为延迟 false为不延迟 extra为极其懒惰 即需要什么就查什么 只查需要的字段 -->
+     <set name="linkMans" cascade="save-update,delete" inverse="true">
+     	<!-- 外键名称 -->
+     	<key column="clid"/>
+     	<!-- 写全类名 -->
+     	<one-to-many class="com.Howard.entity.LinkMan"/>
+     </set>
+     
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+  <class name="com.Howard.entity.Role" table="t_role" >
+     <id name="r_id" column="r_id">
+     	<!-- uuid:生成32位字符串  -->
+     	<!-- <generator class="uuid"></generator> -->
+     	<!-- native 会根据你的数据库自动选择策略 比如mysql 选择的是自动增长 -->
+     	<generator class="native"></generator>
+     </id>
+     <property name="r_name" column="r_name"/>
+     <property name="r_memo" column="r_memo"/>
+     
+      <!-- 多对多要配置第三张表 -->
+     <set name="employes" table="employe_role">
+     	<!-- 外键名称   配置映射文件在第三张表的名称-->
+     	<key column="roleid"/>
+     	<!-- 写全类名 -->
+     	<many-to-many class="com.Howard.entity.Employe" column="employeid"/>
+     </set>
+     
+  </class>
+</hibernate-mapping>
